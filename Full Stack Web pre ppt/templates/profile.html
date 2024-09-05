@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-header">
+            <h1>Profile Page</h1>
+        </div>
+        <div class="profile-content">
+            <!-- Display Profile Photo -->
+            <div class="profile-photo">
+                {% if resume_data.profile_photo %}
+                    <img src="{{ url_for('static', filename='uploads/' ~ resume_data.profile_photo) }}" alt="Profile Photo">
+                {% else %}
+                    <p>No profile photo uploaded.</p>
+                {% endif %}
+            </div>
+            
+            <!-- Form to Edit Profile -->
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" value="{{ resume_data.name or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone" value="{{ resume_data.phone or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="{{ resume_data.email or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="education">Education:</label>
+                    <input type="text" id="education" name="education" value="{{ resume_data.education or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="skills">Skills:</label>
+                    <input type="text" id="skills" name="skills" value="{{ resume_data.skills or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile_photo">Profile Photo:</label>
+                    <input type="file" id="profile_photo" name="profile_photo">
+                </div>
+                <button type="submit">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
