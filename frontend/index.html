@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Competency</title>
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+            color: #2d3748;
+            background-image: url('your-background-image.jpg'); /* Replace with actual image path */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        h1 {
+            text-align: center;
+            color: #1a202c;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background-color: rgba(74, 144, 226, 0.85);
+            color: white;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar .hamburger {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .navbar .hamburger div {
+            width: 30px;
+            height: 4px;
+            background-color: white;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+        .navbar .logo {
+            font-size: 1.8em;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .navbar .auth-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        .navbar .auth-buttons a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 25px;
+            background-color: #007bff;
+            border-radius: 50px;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+        .navbar .auth-buttons a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Hamburger Menu Styles */
+        .menu {
+            display: none;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            background-color: #4a90e2;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+        }
+        .menu a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            font-size: 1.1em;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .menu a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 80px auto 50px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Grid Styles */
+        .grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .grid-item {
+            flex: 1;
+            padding: 30px;
+            background-color: #4a90e2;
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+            transition: background 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .grid-item:hover {
+            background-color: #0056b3;
+            transform: translateY(-10px);
+        }
+
+        /* Explanation Section */
+        .explanation {
+            margin: 50px 0;
+        }
+        .explanation h2 {
+            text-align: center;
+            color: #1a202c;
+            margin-bottom: 20px;
+        }
+        .explanation p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+
+        /* Image Gallery Styles */
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 40px auto;
+            max-width: 1200px;
+        }
+        .image-item {
+            flex: 1 1 calc(33.333% - 20px); /* Adjust width to fit 3 images per row */
+            box-sizing: border-box;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .image-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .image-item img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #1a202c;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        footer p {
+            margin: 10px 0;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .social-icons a {
+            color: white;
+            font-size: 1.8em;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: #4a90e2;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .grid {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="logo" onclick="location.href='index.html'">Smart Competency</div>
+        <div class="auth-buttons">
+            <a href="login.html">Login</a>
+            <a href="signup.html">Signup</a>
+        </div>
+    </nav>
+
+    <!-- Hamburger Menu -->
+    <div class="menu" id="menu">
+        <a href="#" onclick="showSection('all')">Jobs & Courses</a>
+        <a href="#">Skills Assessment</a>
+        <a href="#">Learning Path</a>
+        <a href="#">Community & Support</a>
+        <a href="#">Resume Wizard</a>
+        <a href="profile.html">Profile</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="content">
+        <h1>Welcome to Smart Competency</h1>
+        <div class="grid">
+            <div class="grid-item" id="allCourses" onclick="scrollToSection('image-gallery')">All Courses & Jobs</div>
+            <div class="grid-item" id="onlyCourses" onclick="scrollToSection('image-gallery')">Only Courses</div>
+            <div class="grid-item" id="onlyJobs" onclick="scrollToSection('image-gallery')">Only Jobs</div>
+        </div>
+
+        <!-- Explanation Section -->
+        <div class="explanation">
+            <h2>What We Offer</h2>
+            <p><strong>Courses & Jobs:</strong> We provide a comprehensive list of courses and job opportunities that match your skills and goals, helping you grow and succeed in your career.</p>
+            <p><strong>Skills Assessment:</strong> Our skill assessment tools help you identify your strengths and areas for improvement, guiding you toward suitable learning paths.</p>
+            <p><strong>Learning Path:</strong> Our platform creates personalized learning paths to help you acquire the skills you need for your desired job roles.</p>
+            <p><strong>Community & Support:</strong> Connect with our community of learners and professionals, where you can share insights and seek help from our dedicated support team.</p>
+            <p><strong>Resume Wizard:</strong> Our resume wizard makes creating a professional resume easy, ensuring you stand out to recruiters and employers.</p>
+        </div>
+
+        <!-- Image Gallery -->
+        <div class="image-gallery" id="image-gallery">
+            <div class="image-item"><img src="https://i.ytimg.com/vi/mJgBOIoGihA/maxresdefault.jpg" alt="Image 1"></div>
+            <div class="image-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjktMfbVnWF7LsAIG52osNlb6-QWD5MX_TTA&s" alt="Image 2"></div>
+            <div class="image-item"><img src="https://www.freecodecamp.org/news/content/images/2021/06/javascriptfull.png" alt="Image 3"></div>
+            <div class="image-item"><img src="https://www.rnwmultimedia.edu.in/images/reactjs.jpg" alt="Image 4"></div>
+            <div class="image-item"><img src="https://media.geeksforgeeks.org/wp-content/uploads/20240801153101/DSA-to-System-Design-For-Working-Professionals.webp" alt="Image 5"></div>
+            <div class="image-item"><img src="https://i.ytimg.com/vi/26QPDBe-NB8/maxresdefault.jpg" alt="Image 6"></div>
+            <div class="image-item"><img src="image7.jpg" alt="Image 7"></div>
+            <div class="image-item"><img src="image8.jpg" alt="Image 8"></div>
+            <div class="image-item"><img src="image9.jpg" alt="Image 9"></div>
+            <div class="image-item"><img src="image10.jpg" alt="Image 10"></div>
+            <div class="image-item"><img src="image11.jpg" alt="Image 11"></div>
+            <div class="image-item"><img src="image12.jpg" alt="Image 12"></div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>Contact & Support: support@smartcompetency.com</p>
+        <div class="social-icons">
+            <a href="https://x.com/?lang=en" target="_blank">Twitter<i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram">instagram</i></a>
+            <a href="mailto:support@smartcompetency.com"><i class="fas fa-envelope"></i></a>
+            <a href="https://in.linkedin.com/"><i class="fas fa-linkedin">LinkedIn</i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Function to toggle the hamburger menu visibility
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Function to handle section display
+        function showSection(section) {
+            toggleMenu(); // Hide menu after selection
+            setActive(section); // Set the active section
+        }
+
+        // Function to handle click and apply active styles
+        function setActive(section) {
+            document.querySelectorAll('.grid-item').forEach(item => {
+                item.classList.remove('active', 'all', 'courses', 'jobs');
+            });
+
+            if (section === 'all') {
+                document.getElementById('allCourses').classList.add('active', 'all');
+            } else if (section === 'courses') {
+                document.getElementById('onlyCourses').classList.add('active', 'courses');
+            } else if (section === 'jobs') {
+                document.getElementById('onlyJobs').classList.add('active', 'jobs');
+            }
+        }
+
+        // Function to scroll to a section smoothly
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+    <!-- Add FontAwesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
