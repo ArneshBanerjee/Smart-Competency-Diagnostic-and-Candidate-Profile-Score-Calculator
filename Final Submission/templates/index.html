@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Score Calculator</title>
+</head>
+<body>
+    <h1>Profile Score Calculator</h1>
+    <form method="POST">
+        <label for="skills">Skills (out of 100):</label>
+        <input type="number" id="skills" name="skills" required><br>
+
+        <label for="experience">Experience (in years):</label>
+        <input type="number" id="experience" name="experience" required><br>
+
+        <label for="education_level">Education Level:</label>
+        <select id="education_level" name="education_level" required>
+            <option value="High School">High School</option>
+            <option value="Bachelor">Bachelor</option>
+            <option value="Master">Master</option>
+            <option value="PhD">PhD</option>
+        </select><br>
+
+        <label for="projects_achievements">Projects and Achievements (out of 10):</label>
+        <input type="number" id="projects_achievements" name="projects_achievements" required><br>
+
+        <button type="submit">Calculate Score</button>
+    </form>
+
+    {% if score is not none %}
+        <h2>Your Profile Score: {{ score }}</h2>
+    {% endif %}
+</body>
+</html>

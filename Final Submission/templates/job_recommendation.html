@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Recommendation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Light blue background */
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff; /* White content background */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0044cc; /* Darker blue */
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #0044cc;
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #0044cc;
+            border-radius: 5px;
+            background-color: #e6f0ff; /* Light blue */
+            color: #0044cc;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0044cc;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #003399; /* Darker blue on hover */
+        }
+
+        h2 {
+            color: #0044cc;
+            margin-top: 30px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #e6f0ff; /* Light blue */
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            color: #0044cc;
+        }
+
+        p {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Job Recommendation</h1>
+        
+        <form action="/job_recommendation" method="post">
+            <label for="job_title">Select a Job Title:</label>
+            <select name="job_title" id="job_title">
+                {% for job in all_jobs %}
+                    <option value="{{ job }}">{{ job }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Search Jobs</button>
+        </form>
+        
+        {% if recommended_jobs %}
+            <h2>Recommended Jobs for "{{ selected_job }}"</h2>
+            <ul>
+                {% for job in recommended_jobs %}
+                    <li>{{ job }}</li>
+                {% endfor %}
+            </ul>
+        {% elif error %}
+            <p>{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            overflow-x: hidden;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-left: 250px; /* Adjust for hamburger menu width */
+            flex-grow: 1;
+            position: relative;
+        }
+        .hamburger-menu {
+            position: fixed;
+            top: 0;
+            left: 0; /* Position on the left side */
+            width: 250px;
+            height: 100%;
+            background-color: #007bff;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            transform: translateX(-100%); /* Hide offscreen initially */
+        }
+        .hamburger-menu.open {
+            transform: translateX(0); /* Show menu */
+        }
+        .hamburger-menu button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+        .hamburger-menu button:hover {
+            background-color: #0056b3;
+        }
+        .hamburger-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+        .hamburger-menu ul li {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .hamburger-menu ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .hamburger-icon {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000; /* Make sure it is above other content */
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-header h1 {
+            font-size: 2em;
+            color: #007bff;
+            margin: 0;
+        }
+        .profile-photo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-photo img {
+            max-width: 150px;
+            border-radius: 50%;
+            border: 2px solid #007bff;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="file"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        .form-group input[type="file"] {
+            border: none;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .nav-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .nav-buttons button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .nav-buttons button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="hamburger-menu" id="hamburger-menu">
+        <button id="menu-toggle">☰</button>
+        <ul>
+            <li><a href="#">Resume Wizard</a></li>
+            <li><a href="#">Job Recommendation</a></li>
+            <li><a href="#">Course Recommendation</a></li>
+            <li><a href="#">Self Assessment</a></li>
+            <li><a href="#">Profile</a></li>
+        </ul>
+    </div>
+    
+    <div class="hamburger-icon" id="hamburger-icon">
+        <button id="menu-toggle-icon">☰</button>
+    </div>
+
+    <div class="container">
+        <div class="nav-buttons">
+            <button id="back-button">Back</button>
+            <button id="next-button">Next</button>
+        </div>
+        <div class="profile-header">
+            <h1>Profile Page</h1>
+        </div>
+        <div class="profile-content">
+            <div class="profile-photo">
+                {% if resume_data.profile_photo %}
+                    <img src="{{ url_for('static', filename='uploads/' ~ resume_data.profile_photo) }}" alt="Profile Photo">
+                {% else %}
+                    <p>No profile photo uploaded.</p>
+                {% endif %}
+            </div>
+        
+
+        <div class="nav-buttons">
+            <a href="{{ url_for('next_page') }}">
+                <button id="back-button">Back</button>
+            </a>
+            <a href="{{ url_for('next_page') }}">
+                <button id="next-button">Next</button>
+            </a>
+        </div>
+            
+            
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" value="{{ resume_data.name or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone" value="{{ resume_data.phone or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="{{ resume_data.email or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="education">Education:</label>
+                    <input type="text" id="education" name="education" value="{{ resume_data.education or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="skills">Skills:</label>
+                    <input type="text" id="skills" name="skills" value="{{ resume_data.skills or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile_photo">Profile Photo:</label>
+                    <input type="file" id="profile_photo" name="profile_photo">
+                </div>
+                <button type="submit">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('menu-toggle-icon').addEventListener('click', function() {
+            var menu = document.getElementById('hamburger-menu');
+            menu.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+<!--
+<div class="container">
+    
+    <div class="profile-score">
+        <h3>Total Score: {{ resume_data.points.total_points }}</h3>
+        <p>Skills Points: {{ resume_data.points.skill_points }}</p>
+        <p>Work Experience Points: {{ resume_data.points.work_points }}</p>
+        <p>Achievements Points: {{ resume_data.points.achievement_points }}</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="work_experience">Add Work Experience or Internships (10 points each):</label>
+            <div id="work-experience-container">
+                <input type="text" name="work_experience" placeholder="Work Experience">
+            </div>
+            <button type="button" onclick="addWorkExperience()">Add More</button>
+        </div>
+
+        <div class="form-group">
+            <label for="achievements">Add Significant Achievements (10 points each):</label>
+            <div id="achievement-container">
+                <input type="text" name="achievements" placeholder="Achievement">
+            </div>
+            <button type="button" onclick="addAchievement()">Add More</button>
+        </div>
+
+        <button type="submit">Update Profile</button>
+    </form>
+</div>
+
+<script>
+    function addWorkExperience() {
+        const container = document.getElementById('work-experience-container');
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = 'work_experience';
+        input.placeholder = 'Work Experience';
+        container.appendChild(input);
+    }
+
+    function addAchievement() {
+        const container = document.getElementById('achievement-container');
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = 'achievements';
+        input.placeholder = 'Achievement';
+        container.appendChild(input);
+    }
+</script>
+-->
