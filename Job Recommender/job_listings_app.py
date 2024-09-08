@@ -1,8 +1,8 @@
 '''import streamlit as st
 import  pickle
 
-df = pickle.load(open('/Users/arneshbanerjee/Coding/Code/ml/job_recomendation/models/df.pkl', 'rb'))
-similarity = pickle.load(open('/Users/arneshbanerjee/Coding/Code/ml/job_recomendation/models/similarity.pkl', 'rb'))
+df = pickle.load(open('<filepath>', 'rb'))
+similarity = pickle.load(open('<filepath>', 'rb'))
 
 
 def recommendation(title):
@@ -28,8 +28,8 @@ import streamlit as st
 import pandas as pd
 import pickle
 
-df = pickle.load(open('/Users/arneshbanerjee/Coding/Code/ml/job_recomendation/models/df.pkl', 'rb'))
-similarity = pickle.load(open('/Users/arneshbanerjee/Coding/Code/ml/job_recomendation/models/similarity_job.pkl', 'rb'))
+df = pickle.load(open('<filepath>', 'rb'))
+similarity = pickle.load(open('<filepath>', 'rb'))
 
 def recommendation(title):
     idx = df[df['Title']==title].index[0]

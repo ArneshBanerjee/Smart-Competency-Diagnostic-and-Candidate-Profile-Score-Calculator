@@ -13,10 +13,10 @@ resume_data = {}
 app = Flask(__name__)
 
 #loading models
-rf_classifier_categorization = pickle.load(open('/Users/arneshbanerjee/Coding/Code/ml/job_recomendation/models/rf_classifier_categorization.pkl', 'rb'))
-tfidf_vectorizer_categorization = pickle.load(open('/Users/arneshbanerjee/Coding/Code/ml/job_recomendation/models/tfidf_vectorizer_categorization.pkl', 'rb'))
-rf_classifier_job_recomendation = pickle.load(open('/Users/arneshbanerjee/Coding/Code/ml/job_recomendation/models/rf_classifier_job_recommendation.pkl', 'rb'))
-tfidf_vectorizer_job_recommendation = pickle.load(open('/Users/arneshbanerjee/Coding/Code/ml/job_recomendation/models/tfidf_vectorizer_job_recommendation.pkl', 'rb'))
+rf_classifier_categorization = pickle.load(open('models/rf_classifier_categorization.pkl', 'rb'))
+tfidf_vectorizer_categorization = pickle.load(open('models/tfidf_vectorizer_categorization.pkl', 'rb'))
+rf_classifier_job_recomendation = pickle.load(open('/models/rf_classifier_job_recommendation.pkl', 'rb'))
+tfidf_vectorizer_job_recommendation = pickle.load(open('models/tfidf_vectorizer_job_recommendation.pkl', 'rb'))
 
 #cleaning resume
 def cleanResume(txt):
@@ -355,14 +355,14 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 #loading models
-rf_classifier_categorization = pickle.load(open('/Users/arneshbanerjee/Coding/Code/ml/job_recomendation/models/rf_classifier_categorization.pkl', 'rb'))
-tfidf_vectorizer_categorization = pickle.load(open('/Users/arneshbanerjee/Coding/Code/ml/job_recomendation/models/tfidf_vectorizer_categorization.pkl', 'rb'))
-rf_classifier_job_recomendation = pickle.load(open('/Users/arneshbanerjee/Coding/Code/ml/job_recomendation/models/rf_classifier_job_recommendation.pkl', 'rb'))
-tfidf_vectorizer_job_recommendation = pickle.load(open('/Users/arneshbanerjee/Coding/Code/ml/job_recomendation/models/tfidf_vectorizer_job_recommendation.pkl', 'rb'))
+rf_classifier_categorization = pickle.load(open('models/rf_classifier_categorization.pkl', 'rb'))
+tfidf_vectorizer_categorization = pickle.load(open('models/tfidf_vectorizer_categorization.pkl', 'rb'))
+rf_classifier_job_recomendation = pickle.load(open('/models/rf_classifier_job_recommendation.pkl', 'rb'))
+tfidf_vectorizer_job_recommendation = pickle.load(open('models/tfidf_vectorizer_job_recommendation.pkl', 'rb'))
 
 #job recommendation models
-df = pickle.load(open('/Users/arneshbanerjee/Coding/Code/ml/job_recomendation/models/df.pkl', 'rb'))
-similarity_job = pickle.load(open('/Users/arneshbanerjee/Coding/Code/ml/job_recomendation/models/similarity_job.pkl', 'rb'))
+df = pickle.load(open('models/df.pkl', 'rb'))
+similarity_job = pickle.load(open('models/similarity_job.pkl', 'rb'))
 
 #course recommendation models
 courses_list = pickle.load(open('models/courses.pkl','rb'))
