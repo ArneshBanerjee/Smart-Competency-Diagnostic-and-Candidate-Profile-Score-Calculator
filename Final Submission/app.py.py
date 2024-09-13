@@ -44,11 +44,11 @@ similarity = pickle.load(open('models/similarity.pkl','rb'))
 
 min_size = min(df.shape[0], similarity_job.shape[0]) #CHANGE 1
 
-# Truncate df to match similarity_job if necessary
 df = df.iloc[:min_size].reset_index(drop=True) #CHANGE 2
 
-# Truncate similarity_job to match df
 similarity_job = similarity_job[:min_size, :min_size] #CHANGE 3
+
+#Aboe 3 added to drop extra rows whose index didn't exist to resolve out of bounds error
 
 
 #cleaning resume
@@ -262,7 +262,7 @@ def recommend(course):
         recommended_course_names.append(course_name)
     return recommended_course_names
 
-#questions for skill verification
+#questions for skill verification, not implemted on web
 web_dev_questions = [
     {
         'question': 'What does HTML stand for?',
@@ -323,7 +323,7 @@ def generate_resume(resume_data):
 * {resume_data['achievements']}
 """
 
-    # Add more sections or customize the format as needed
+
 
     return resume_text
 
@@ -331,8 +331,6 @@ def generate_resume(resume_data):
 #routes
 
 @app.route('/')
-
-# Login page route
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -424,7 +422,7 @@ def profile():
         resume_data['education'] = request.form['education']
         resume_data['skills'] = request.form['skills'].split(", ")  # Split skills by comma
         
-        # Handle profile photo upload
+        #pfp upload
         if 'profile_photo' in request.files:
             file = request.files['profile_photo']
             if file and file.filename:
@@ -433,15 +431,15 @@ def profile():
                 file.save(file_path)
                 resume_data['profile_photo'] = filename
         
-        # Get work experience and achievements
+        #exp acceptabce
         work_experience = request.form.getlist('work_experience')
         achievements = request.form.getlist('achievements')
 
-        # Update work experience and achievements
+        #achievements
         resume_data['work_experience'] = work_experience
         resume_data['achievements'] = achievements
 
-        # Calculate points
+        #points calculator, yet to be finalised
         skill_points = len(resume_data['skills']) * 5
         work_points = len(work_experience) * 10
         achievement_points = len(achievements) * 10
@@ -456,7 +454,7 @@ def profile():
 
         return redirect(url_for('profile'))
 
-    # Ensure points exist in the resume data even when the page is first loaded
+
     if 'points' not in resume_data:
         resume_data['points'] = {
             'skill_points': 0,
@@ -478,19 +476,15 @@ def job_recommendation_page():
         
     
 
-        # Debug: Print selected job and check if it exists in the dataframe
         print(f"Selected Job: {selected_job}")
        
         
         if selected_job in df['Title'].values:
-            # Find the index of the selected job in the dataframe
             job_index = df[df['Title'] == selected_job].index[0]
             
-            # Debug: Print job_index and dimensions of similarity_job
             print(f"Selected Job Index: {job_index}")
             print(f"Similarity Job Matrix Shape: {similarity_job.shape}")
 
-            # Check if the job_index is within bounds of the similarity_job matrix
             if job_index >= similarity_job.shape[0]:
                 error = "Job index is out of bounds for similarity matrix."
                 print(f"Error: {error}")
@@ -498,11 +492,11 @@ def job_recommendation_page():
                                        all_jobs=df['Title'].tolist(), 
                                        error=error)
 
-            # Get similar jobs
+            #similar jobs
             distances = similarity_job[job_index]
             job_indices = distances.argsort()[:10]  # Get top 10 similar jobs
             
-            # Validate job_indices within bounds of df
+            #out of bounds
             valid_indices = [i for i in job_indices if i < len(df)]
             print(f"Valid Indices: {valid_indices}")
 
@@ -523,7 +517,7 @@ def job_recommendation_page():
                                selected_job=selected_job, 
                                error=error)
     
-    # For GET request, render the page with a search box
+
     all_jobs = df['Title'].tolist()
     return render_template('job_recommendation.html', all_jobs=all_jobs)
 
@@ -558,7 +552,7 @@ def resume_wizard():
         resume_data['achievements'].append(add_more_achievements)
 
 
-        # Update resume data with additional information
+        #resume info update
         
         if add_more_skills:
             resume_data['skills'] += ', ' + add_more_skills
